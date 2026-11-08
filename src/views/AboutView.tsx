@@ -16,6 +16,8 @@ import {
   FileText
 } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import heroMayfairStudy from '../assets/images/hero_mayfair_study_1793552648741.jpg';
+import conciergeDirectorPortrait from '../assets/images/concierge_director_portrait_1793552650187.jpg';
 
 interface AboutViewProps {
   onNavigate: (page: Page) => void;
@@ -58,7 +60,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             {/* Studio Photo with Lazy Loading & High-Fidelity Local Asset */}
             <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] shadow-xl group min-h-[420px]">
               <LazyImage
-                src="/src/assets/images/hero_mayfair_study_1793552648741.jpg"
+                src={heroMayfairStudy}
                 alt="The Private Studio - London"
                 className="w-full h-full object-cover filter brightness-[0.98] contrast-[1.02] group-hover:scale-102 transition-transform duration-700"
               />
@@ -212,7 +214,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             >
               <div className="rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] shadow-xl group">
                 <LazyImage
-                  src="/src/assets/images/concierge_director_portrait_1793552650187.jpg"
+                  src={conciergeDirectorPortrait}
                   alt="Eleanor Vance, Director of Concierge Operations"
                   className="w-full h-[500px] object-cover filter brightness-[0.98] contrast-[1.02]"
                 />

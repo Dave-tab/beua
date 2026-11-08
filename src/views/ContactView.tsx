@@ -14,6 +14,9 @@ import {
   Loader2
 } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import heroMayfairStudy from '../assets/images/hero_mayfair_study_1793552648741.jpg';
+import travelDossierFlatlay from '../assets/images/travel_dossier_flatlay_1793552651377.jpg';
+import privateMemberLounge from '../assets/images/private_member_lounge_1793552650720.jpg';
 
 interface ContactViewProps {
   onNavigate: (page: Page) => void;
@@ -518,7 +521,7 @@ export const ContactView: React.FC<ContactViewProps> = ({
             <div className="space-y-3">
               <div className="rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] h-52 shadow-sm group">
                 <LazyImage
-                  src="/src/assets/images/hero_mayfair_study_1793552648741.jpg"
+                  src={heroMayfairStudy}
                   alt="Mayfair & St James's Library Suites"
                   className="w-full h-full object-cover filter brightness-[0.96] group-hover:scale-103 transition-transform duration-700"
                 />
@@ -536,7 +539,7 @@ export const ContactView: React.FC<ContactViewProps> = ({
             <div className="space-y-3">
               <div className="rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] h-52 shadow-sm group">
                 <LazyImage
-                  src="/src/assets/images/travel_dossier_flatlay_1793552651377.jpg"
+                  src={travelDossierFlatlay}
                   alt="Curated International Itineraries"
                   className="w-full h-full object-cover filter brightness-[0.96] group-hover:scale-103 transition-transform duration-700"
                 />
@@ -554,7 +557,7 @@ export const ContactView: React.FC<ContactViewProps> = ({
             <div className="space-y-3">
               <div className="rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] h-52 shadow-sm group">
                 <LazyImage
-                  src="/src/assets/images/private_member_lounge_1793552650720.jpg"
+                  src={privateMemberLounge}
                   alt="Discreet Private Member Lounges"
                   className="w-full h-full object-cover filter brightness-[0.96] group-hover:scale-103 transition-transform duration-700"
                 />

@@ -18,6 +18,8 @@ import {
   Check
 } from 'lucide-react';
 import { LazyImage } from '../components/LazyImage';
+import travelDossierFlatlay from '../assets/images/travel_dossier_flatlay_1793552651377.jpg';
+import privateMemberLounge from '../assets/images/private_member_lounge_1793552650720.jpg';
 
 interface ServicesViewProps {
   onNavigate: (page: Page) => void;
@@ -112,7 +114,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <div className="relative rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] h-64 group shadow-sm">
               <LazyImage
-                src="/src/assets/images/travel_dossier_flatlay_1793552651377.jpg"
+                src={travelDossierFlatlay}
                 alt="Private Travel & Itinerary Coordination"
                 className="w-full h-full object-cover filter brightness-[0.97] group-hover:scale-102 transition-transform duration-700"
               />
@@ -131,7 +133,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
             <div className="relative rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] h-64 group shadow-sm">
               <LazyImage
-                src="/src/assets/images/private_member_lounge_1793552650720.jpg"
+                src={privateMemberLounge}
                 alt="Private Member Lounges & Executive Care"
                 className="w-full h-full object-cover filter brightness-[0.97] group-hover:scale-102 transition-transform duration-700"
               />

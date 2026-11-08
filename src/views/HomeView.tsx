@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 import { FAQS_DATA } from '../data/faqs';
 import { LazyImage } from '../components/LazyImage';
+import heroMayfairStudy from '../assets/images/hero_mayfair_study_1793552648741.jpg';
+import conciergeDirectorPortrait from '../assets/images/concierge_director_portrait_1793552650187.jpg';
 
 interface HomeViewProps {
   onNavigate: (page: Page) => void;
@@ -236,7 +238,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             >
               <div className="relative rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] shadow-xl group">
                 <LazyImage
-                  src="/src/assets/images/hero_mayfair_study_1793552648741.jpg"
+                  src={heroMayfairStudy}
                   alt="BEUA Private Study in Mayfair London"
                   className="w-full h-[400px] sm:h-[480px] object-cover filter brightness-[0.98] contrast-[1.02] group-hover:scale-102 transition-transform duration-700"
                 />
@@ -714,7 +716,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             >
               <div className="rounded-2xl overflow-hidden border border-[#d6cfbe] bg-[#f0ede4] shadow-xl relative group">
                 <LazyImage
-                  src="/src/assets/images/concierge_director_portrait_1793552650187.jpg"
+                  src={conciergeDirectorPortrait}
                   alt="Direct Client Coordination - Eleanor Vance"
                   className="w-full h-[460px] object-cover filter brightness-[0.98] contrast-[1.02]"
                 />
