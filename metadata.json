@@ -1,0 +1,6 @@
+{
+  "name": "BEUA Concierge & Support",
+  "description": "Bespoke lifestyle concierge, private executive administration, and travel coordination for busy professionals and discerning individuals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

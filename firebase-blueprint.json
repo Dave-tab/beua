@@ -1,0 +1,207 @@
+{
+  "entities": {
+    "Booking": {
+      "title": "Booking",
+      "description": "Client consultation booking and video appointment record.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Unique booking reference (e.g. BEUA-DS-8842)."
+        },
+        "fullName": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Full name of the principal or client representative."
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Contact email address for invitations and confirmation."
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Optional telephone, Signal, or WhatsApp contact."
+        },
+        "scheduledDate": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Date string in YYYY-MM-DD format."
+        },
+        "slotTime": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Reserved appointment slot time."
+        },
+        "timezone": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Client operating timezone."
+        },
+        "primaryInterest": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Lifestyle, Travel, Administrative, or Advisory interest."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2048,
+          "description": "Confidential advisory notes or instructions."
+        },
+        "meetUrl": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Google Meet video room URL."
+        },
+        "calendarOption": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Option A (Google Calendar) or Option C (Private Desk & .ics)."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "confirmed", "completed", "cancelled"],
+          "description": "Operational status of the appointment."
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Last update timestamp."
+        }
+      },
+      "required": ["id", "fullName", "email", "scheduledDate", "slotTime", "status"]
+    },
+    "Availability": {
+      "title": "Availability",
+      "description": "Custom coordinator slot availability and day blackout configuration.",
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Date identifier in YYYY-MM-DD format."
+        },
+        "blockedSlots": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Comma-separated or JSON list of disabled slot IDs."
+        },
+        "isDayBlocked": {
+          "type": "boolean",
+          "description": "Whether the entire date is unavailable."
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Timestamp of the last availability override."
+        }
+      },
+      "required": ["date"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized BEUA concierge coordinator or director record.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Coordinator email address."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["coordinator", "director"],
+          "description": "Administrative authority level."
+        },
+        "assignedHub": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Assigned office hub (e.g. London W1, Global Remote)."
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Account registration timestamp."
+        }
+      },
+      "required": ["email", "role"]
+    },
+    "ContactBrief": {
+      "title": "ContactBrief",
+      "description": "Confidential enquiry or service brief submitted by a prospective principal.",
+      "type": "object",
+      "properties": {
+        "dossierCode": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Unique dossier reference tracking code."
+        },
+        "fullName": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Full name of the enquirer."
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Return email address."
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Telephone or messaging handle."
+        },
+        "interest": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Service domain requested."
+        },
+        "scope": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Urgency and horizon."
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 3000,
+          "description": "Detailed brief content."
+        },
+        "ndaAccepted": {
+          "type": "boolean",
+          "description": "Whether mutual non-disclosure was requested."
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Submission timestamp."
+        }
+      },
+      "required": ["dossierCode", "fullName", "email", "message"]
+    }
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Stores client consultation bookings and meeting credentials."
+    },
+    "/availability/{dateStr}": {
+      "schema": "Availability",
+      "description": "Stores coordinator availability and blackout schedules."
+    },
+    "/admins/{uid}": {
+      "schema": "AdminUser",
+      "description": "Stores authorized coordinator profiles and role definitions."
+    },
+    "/contactBriefs/{briefId}": {
+      "schema": "ContactBrief",
+      "description": "Stores confidential enquiry dossiers submitted via the contact form."
+    }
+  }
+}

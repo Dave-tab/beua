@@ -1,0 +1,75 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all unknown collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin authorization: checks admins document OR bootstrapped admin email
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'ayantadedavid73@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 1. Admin Users Collection
+    match /admins/{uid} {
+      allow get: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // 2. Coordinator Availability & Blackout Overrides
+    match /availability/{dateStr} {
+      allow get, list: if true;
+      allow write: if isAdmin();
+    }
+
+    // 3. Consultation Bookings Collection
+    match /bookings/{bookingId} {
+      // Clients can create new booking reservations
+      allow create: if isValidId(bookingId) &&
+        incoming().id == bookingId &&
+        incoming().fullName is string && incoming().fullName.size() <= 128 &&
+        incoming().email is string && incoming().email.size() <= 256 &&
+        incoming().scheduledDate is string && incoming().scheduledDate.size() <= 32 &&
+        incoming().slotTime is string && incoming().slotTime.size() <= 64;
+
+      // Only authorized coordinators can read all bookings and modify status
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 4. Confidential Contact Briefs
+    match /contactBriefs/{briefId} {
+      // Clients can submit a confidential brief
+      allow create: if isValidId(briefId) &&
+        incoming().fullName is string && incoming().fullName.size() <= 128 &&
+        incoming().email is string && incoming().email.size() <= 256 &&
+        incoming().message is string && incoming().message.size() <= 3000;
+
+      // Only authorized coordinators can inspect or manage confidential dossiers
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}
